@@ -2,6 +2,8 @@ import json
 import falcon
 from .nexmo_inbound import NexmoWebHook
 from .status import Status
+from .answer import Answer
+from .event import Event
 
 application = falcon.API()
 
@@ -36,6 +38,10 @@ class Index(object):
 index = Index()
 inbound_message = NexmoWebHook()
 status = Status()
+answer = Answer()
+event = Event()
 application.add_route('/', index)
 application.add_route('/status', status)
 application.add_route('/inbound', inbound_message)
+application.add_route('/answer', answer)
+application.add_route('/event', event)
