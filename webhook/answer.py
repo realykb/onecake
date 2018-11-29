@@ -6,6 +6,7 @@ import falcon
 class Answer:
     @staticmethod
     def on_get(req, resp):
+        uuid = req.params.get("uuid")
         data = [
             {
                 "action": "talk",
