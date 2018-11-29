@@ -1,0 +1,41 @@
+{
+  "questions": {
+    "start": {
+      "question":"Hello traveller. I'm Gwendelyn. Could you help me find my snail? (Y/N)",
+      "answers": {
+        "y": {
+          "response": "Thank you sooo much!",
+          "next_question": "first_question"
+        },
+        "n": {
+          "response":"Sorry, I meant you are going to help me.",
+          "next_question": "capisce"
+        },
+        "": {
+          "response": "",
+          "next_question": ""
+        }
+      }
+    },
+    "capisce": {
+      "question": "Capisce? (Y/N)",
+      "answers": {
+        "y": {
+          "response":"Thought so kmt.",
+          "next_question": "first_question"
+        },
+        "n": {
+          "response": "",
+          "next_question": "capisce"
+        }
+      }
+    },
+    "first_question" :{
+      "question":"Where's the first place you think we should look? (SHED/GARDEN/PARK/SEWER)",
+      "answers": {
+        "shed": {
+          "response": "Off we go! Dododododododlasioasojbnsdfihbdsvc,asnjkd"}, "garden", "park"},
+
+    },
+
+  }}
