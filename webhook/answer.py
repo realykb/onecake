@@ -7,6 +7,7 @@ class Answer:
     @staticmethod
     def on_get(req, resp):
         uuid = req.params.get("uuid")
+        our_question = 'What is the answer to life the universe and everything'
         data = [
             {
                 "action": "talk",
@@ -16,18 +17,24 @@ class Answer:
             },
             {
                 "action": "talk",
-                "text": "What is 5 time 2378492.",
+                "text": f"{our_question}.",
                 "voiceName": "Amy",
                 "bargeIn": True
             },
             {
                 "action": "input",
-                "submitOnHash": True,
-                "timeOut": 10
+                "speech": {
+                    "context": ["forty two"],
+                    "language": "en-gb",
+                    "uuid": [f"{uuid}"],
+                    "endOnSilence": 2  # 2<=endOnSilence<=10 default 2
+                },
+                "eventUrl": ["http://6e3d2257.ngrok.io/event"],
+                "eventMethod": "POST"  # POST/GET default POST
             },
             {
                 "action": "talk",
-                "text": "Thanks for your input, goodbye.",
+                "text": "Thanks for your input, please hold.",
                 "voiceName": "Amy"
             }
         ]
