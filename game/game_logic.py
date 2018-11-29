@@ -1,4 +1,6 @@
 import json
+import re
+
 
 class GameMaster(object):
     def __init__(self, name, game_id=0):
@@ -15,10 +17,13 @@ class GameMaster(object):
         self.current_question = q = self.game_json['start']
         return q['question']
 
-
     def get_game_response(self, user_input):
         try:
-            self.game_json[user_input]
+            answer = self.current_question['answers'][user_input.lower()]
+            self.current_question = self.game_json[answer["next_question"]]
+            return (answer['response'] + '\n' + self.current_question['question']).strip()
         except KeyError:
-            self.game_json = self.current_question[""]
+            q = self.current_question["question"]
+            return "Please respond with an appropriate answer " + \
+                   re.search(r".*\((.+)\)", q).group(1)
 
