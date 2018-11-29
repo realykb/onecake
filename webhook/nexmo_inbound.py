@@ -5,7 +5,7 @@ import falcon
 class NexmoWebHook:
     @staticmethod
     def on_post(req, resp):
-        print("In Nexmo WebHook")
+        print("In Nexmo WebHook Post")
         body = req.stream.read()
         if not body:
             raise falcon.HTTPBadRequest('Empty request body',
@@ -20,10 +20,25 @@ class NexmoWebHook:
                                    'JSON was incorrect or not encoded as '
                                    'UTF-8.')
 
-        # Print the JSON body to console
         print(req.context['body'])
+        resp.status = falcon.HTTP_200
 
-        # The following line can be omitted because 200 is the default
-        # status returned by the framework, but it is included here to
-        # illustrate how this may be overridden as needed.
+    @staticmethod
+    def on_get(req, resp):
+        print("In Nexmo WebHook Get")
+        body = req.stream.read()
+        if not body:
+            raise falcon.HTTPBadRequest('Empty request body',
+                                        'A valid JSON document is required.')
+
+        try:
+            req.context['body'] = json.loads(body.decode('utf-8'))
+        except (ValueError, UnicodeDecodeError):
+            raise falcon.HTTPError(falcon.HTTP_753,
+                                   'Malformed JSON',
+                                   'Could not decode the request body. The '
+                                   'JSON was incorrect or not encoded as '
+                                   'UTF-8.')
+
+        print(req.context['body'])
         resp.status = falcon.HTTP_200
