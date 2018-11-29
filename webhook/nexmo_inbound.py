@@ -28,24 +28,23 @@ class NexmoWebHook:
                    'Content-Type': 'application/json',
                    'Accept': 'application/json'}
         data = {
-          "from": {"type": "messenger", "id": from_id},
-          "to": {"type": "messenger", "id": to_id},
-          "message": {
-            "content": {
-              "type": "text",
-              "text": "Kangbo is a bitch"
+            "from": {"type": "messenger", "id": from_id},
+            "to": {"type": "messenger", "id": to_id},
+            "message": {
+                "content": {
+                    "type": "text",
+                    "text": "Kangbo is a bitch"
+                }
             }
-          }
         }
-        for i in range(1, 20):
-            resp = requests.post(url=url, headers=headers, data=json.dumps(data))
-            if resp.status_code == 200:
-                log.info('message sent')
-            else:
-                log.error(f"error while sending message: {resp.json()}")
+
+        resp = requests.post(url=url, headers=headers, data=json.dumps(data))
+        if resp.status_code == 202:
+            log.info('message sent')
+        else:
+            log.error(f"error {resp.status_code} while sending message: {resp.json()}")
 
     def on_post(self, req, resp):
-        print("In Nexmo WebHook Post")
         body = req.stream.read()
         if not body:
             raise falcon.HTTPBadRequest('Empty request body',
@@ -63,11 +62,9 @@ class NexmoWebHook:
                                    'JSON was incorrect or not encoded as '
                                    'UTF-8.')
 
-        print(req.context['body'])
         resp.status = falcon.HTTP_200
 
     def on_get(self, req, resp):
-        print("In Nexmo WebHook Get")
         body = req.stream.read()
         if not body:
             raise falcon.HTTPBadRequest('Empty request body',
@@ -82,5 +79,4 @@ class NexmoWebHook:
                                    'JSON was incorrect or not encoded as '
                                    'UTF-8.')
 
-        print(req.context['body'])
         resp.status = falcon.HTTP_200
