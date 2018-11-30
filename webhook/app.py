@@ -1,7 +1,5 @@
 import json
 import falcon
-
-from game.game import Game
 from .nexmo_inbound import NexmoWebHook
 from .status import Status
 from .answer import Answer
@@ -38,11 +36,10 @@ class Index(object):
         resp.status = falcon.HTTP_200
 
 
-game = Game()
 index = Index()
 inbound_message = NexmoWebHook()
 status = Status()
-answer = Answer(game)
+answer = Answer()
 event = Event()
 stt = STT(answer)
 application.add_route('/', index)
