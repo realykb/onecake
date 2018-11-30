@@ -2,3 +2,4 @@ nexmo
 falcon
 gunicorn
 requests
+geopy
