@@ -1,0 +1,44 @@
+{
+  "steps":
+    [
+    {
+      "id" : "1",
+      "message": {
+        "type": "text",
+        "content": "Do you wanna play ?"
+      },
+      "expected": {
+        "type": ["text"],
+        "content": ["yes", "y", "sure", "yep"]
+      },
+      "on_success": {
+        "type": "step",
+        "content": "2"
+      },
+      "on_failure": {
+        "type": "step",
+        "content": "1"
+      },
+      "ttl": {
+        "value": 5
+      },
+      "max_try": {
+        "value": 5
+      }
+    },
+    {
+      "id" : "2",
+      "message": {
+        "type": "text",
+        "content": "I knew it you little slut"
+      },
+      "expected": {
+        "type": ["any"],
+        "content": []
+      },
+      "on_success": {
+        "type": "end"
+      }
+    },
+  ]
+}
