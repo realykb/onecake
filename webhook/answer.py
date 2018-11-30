@@ -27,11 +27,6 @@ class Answer:
                     "endOnSilence": 2
                 },
                 "eventUrl": ["http://6e3d2257.ngrok.io/stt"],
-            },
-            {
-                "action": "talk",
-                "text": "Thanks for your input, please hold.",
-                "voiceName": "Amy"
             }
         ]
 
