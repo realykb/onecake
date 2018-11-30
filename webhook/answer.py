@@ -4,16 +4,17 @@ import falcon
 
 
 class Answer:
-    question_dict = {}
-    
+    def __init__(self, game):
+        self.game = game
+
     def on_get(self, req, resp):
         uuid = req.params.get("uuid")
-        our_question = 'What is the answer to life the universe and everything'
-        self.question_dict[uuid] = our_question
+        #question = self.game.first_question[uuid].get('question')
+        question = 'What is the answer to life the universe and everything'
         data = [
             {
                 "action": "talk",
-                "text": f"Welcome to ONE CAKE Kangbo. {our_question}",
+                "text": f"Welcome to ONE CAKE Kangbo. {question}",
                 "voiceName": "Amy",
                 "bargeIn": False
             },
