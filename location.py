@@ -1,12 +1,12 @@
 from geopy.geocoders import Nominatim
 
 
-class Locator:
+class Locator():
     def __init__(self):
         self.geolocator = Nominatim(user_agent="onecake")
 
     def _get_location(self, lat, lng):
-        return self.geolocator.reverse(lat, lng)
+        return self.geolocator.reverse(", ".join([str(lat), str(lng)]))
 
     def get_address(self, lat, lng):
         location = self._get_location(lat, lng)
