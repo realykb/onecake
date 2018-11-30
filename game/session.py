@@ -28,7 +28,7 @@ class Session:
             else:
                 return self.get_next_step_faillure()
 
-    def text_match(self, expected, actual):
+    def single_text_match(self, expected, actual):
         words = actual.split()
         for word in words:
             if word.lower() in expected:
@@ -36,6 +36,14 @@ class Session:
                 return True
         print('false')
         return False
+
+    def text_match(self, expected, actual):
+        if isinstance(actual, list):
+            for word in actual:
+                if(self.single_text_match(expected, word)):
+                    return True
+            return False
+        return self.single_text_match(expected, actual)
 
     def get_next_step_success(self):
         if 'on_success' not in self.current_step:
