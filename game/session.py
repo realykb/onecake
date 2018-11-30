@@ -1,7 +1,11 @@
+from location import Locator
+
+
 class Session:
     def __init__(self, game_json):
         self.game_json = game_json
         self.current_step = self.get_step(1)
+        self.locator = Locator()
 
     def get_step(self, id):
         for step in self.game_json['steps']:
@@ -19,11 +23,26 @@ class Session:
         if answer_type not in expected_type:
             return self.get_next_step_faillure()
 
+        if 'location' in expected_type and 'location' in answer_type:
+            if self.location_match(expected_content, answer_content):
+                return self.get_next_step_success()
+            else:
+                return self.get_next_step_faillure()
         if 'text' in expected_type:
             if self.text_match(expected_content, answer_content):
                 return self.get_next_step_success()
             else:
                 return self.get_next_step_faillure()
+
+    def location_match(self, expected, actual):
+        lat, long = actual
+        try:
+            city = self.locator.get_city(lat, long)
+        except KeyError:
+            return False
+        if city in expected:
+            return True
+        return False
 
     def single_text_match(self, expected, actual):
         words = actual.split()

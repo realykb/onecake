@@ -30,14 +30,29 @@
       "id" : 2,
       "message": {
         "type": "text",
-        "content": "I knew it you little slut"
+        "content": "I knew it! What's the capital of the UK?"
       },
       "expected": {
-        "type": ["any"],
-        "content": []
+        "type": ["location", "text"],
+        "content": ["london"]
       },
       "on_success": {
-        "type": "end"
+        "type": "step",
+        "content": 3
+      },
+      "on_failure": {
+        "type": "step",
+        "content": 1
+      }
+    },
+    {
+      "id" : 3,
+      "message": {
+        "type": "text",
+        "content": "Congratz"
+      },
+      "expected": {
+        "type": ["any"]
       }
     }
   ]
