@@ -14,7 +14,7 @@ class Session:
         return None
 
     def get_current_step(self):
-        return self.current_step['message']['type'], self.current_step['message']['content']
+        return True, self.current_step['message']['type'], self.current_step['message']['content']
 
     def get_next_step(self, answer_type, answer_content):
         expected_type = self.current_step['expected']['type']
