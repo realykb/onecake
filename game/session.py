@@ -47,7 +47,7 @@ class Session:
 
     def get_next_step_success(self):
         if 'on_success' not in self.current_step:
-            return None
+            return True, None, None
         if 'content' in self.current_step['on_success']:
             next_step_id = self.current_step['on_success']['content']
             current_step = self.get_step(next_step_id)
@@ -57,7 +57,7 @@ class Session:
 
     def get_next_step_faillure(self):
         if 'on_failure' not in self.current_step:
-            return None
+            return False, None, None
         if 'content' in self.current_step['on_failure']:
             next_step_id = self.current_step['on_failure']['content']
             current_step = self.get_step(next_step_id)
