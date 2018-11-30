@@ -10,10 +10,7 @@ class Session:
         return None
 
     def get_current_step(self):
-        for step in self.game_json['steps']:
-            if step['id'] == id:
-                return step
-        return None
+        return self.current_step['message']['type'], self.current_step['message']['content']
 
     def get_next_step(self, answer_type, answer_content):
         expected_type = self.current_step['expected']['type']
@@ -50,8 +47,8 @@ class Session:
             return True, None, None
         if 'content' in self.current_step['on_success']:
             next_step_id = self.current_step['on_success']['content']
-            current_step = self.get_step(next_step_id)
-            return True, current_step['message']['type'], current_step['message']['content']
+            self.current_step = self.get_step(next_step_id)
+            return True, self.current_step['message']['type'], self.current_step['message']['content']
         else:
             return True, None, None
 
@@ -60,7 +57,7 @@ class Session:
             return False, None, None
         if 'content' in self.current_step['on_failure']:
             next_step_id = self.current_step['on_failure']['content']
-            current_step = self.get_step(next_step_id)
-            return False, current_step['message']['type'], current_step['message']['content']
+            self.current_step = self.get_step(next_step_id)
+            return False, self.current_step['message']['type'], self.current_step['message']['content']
         else:
             return False, None, None

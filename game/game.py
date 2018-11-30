@@ -11,6 +11,11 @@ class Game(object):
         with open(file_path, 'rt') as file_content:
             self.game_json = json.load(file_content)
 
+    def get_current_step(self, id):
+        if id not in self.sessions:
+            self.sessions[id] = Session(self.game_json)
+        return self.sessions[id].get_current_step()
+
     def get_next_step(self, id, content_type, content):
         if id not in self.sessions:
             self.sessions[id] = Session(self.game_json)
