@@ -2,7 +2,7 @@
   "steps":
     [
     {
-      "id" : "1",
+      "id" : 1,
       "message": {
         "type": "text",
         "content": "Do you wanna play ?"
@@ -13,11 +13,11 @@
       },
       "on_success": {
         "type": "step",
-        "content": "2"
+        "content": 2
       },
       "on_failure": {
         "type": "step",
-        "content": "1"
+        "content": 1
       },
       "ttl": {
         "value": 5
@@ -27,7 +27,7 @@
       }
     },
     {
-      "id" : "2",
+      "id" : 2,
       "message": {
         "type": "text",
         "content": "I knew it you little slut"
@@ -39,6 +39,6 @@
       "on_success": {
         "type": "end"
       }
-    },
+    }
   ]
 }
