@@ -13,27 +13,29 @@ ch.setFormatter(formatter)
 log.addHandler(ch)
 
 
-class NexmoWebHook:
-    def __init__(self):
+class FacebookWebHook:
+    def __init__(self, game):
         if 'JWT' not in os.environ:
             log.error("JWT env variable not set")
         if 'APPLICATION_ID' not in os.environ:
             log.error("APPLICATION_ID env variable not set")
         self.application_id = os.environ['APPLICATION_ID']
         self.jwt = os.environ['JWT']
+        self.game = game
 
     def send_text_message(self, from_id, to_id, text_content):
         url = 'https://api.nexmo.com/v0.1/messages'
         headers = {'Authorization': 'Bearer ' + self.jwt,
                    'Content-Type': 'application/json',
                    'Accept': 'application/json'}
+
         data = {
             "from": {"type": "messenger", "id": from_id},
             "to": {"type": "messenger", "id": to_id},
             "message": {
                 "content": {
                     "type": "text",
-                    "text": "Kangbo is a bitch"
+                    "text": text_content
                 }
             }
         }
@@ -52,9 +54,6 @@ class NexmoWebHook:
 
         try:
             body = json.loads(body.decode('utf-8'))
-            from_id = body['to']['id']
-            to_id = body['from']['id']
-            self.send_text_message(from_id, to_id, 'my message')
         except (ValueError, UnicodeDecodeError):
             raise falcon.HTTPError(falcon.HTTP_753,
                                    'Malformed JSON',
@@ -62,6 +61,16 @@ class NexmoWebHook:
                                    'JSON was incorrect or not encoded as '
                                    'UTF-8.')
 
+        from_id = body['to']['id']
+        to_id = body['from']['id']
+        content_type = body['message']['content']['type']
+        content = body['message']['content'][content_type]
+        if content_type == 'text':
+            success, q_type, q = self.game.get_next_step(from_id, content_type, content)
+            self.send_text_message(from_id, to_id, q)
+        elif content_type == 'location':
+            success, q_type, q = self.game.get_next_step(from_id, content_type, (content['lat'], content['long']))
+            self.send_text_message(from_id, to_id, q)
         resp.status = falcon.HTTP_200
 
     def on_get(self, req, resp):

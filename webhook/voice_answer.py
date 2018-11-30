@@ -9,6 +9,7 @@ class Answer:
 
     def on_get(self, req, resp):
         uuid = req.params.get("uuid")
+        success, q_type, q = self.game.get_next_step(id, 'text', None)
         #question = self.game.first_question[uuid].get('question')
         question = 'What is the answer to life the universe and everything'
         data = [
