@@ -3,7 +3,7 @@ from session import Session
 
 
 class Game(object):
-    def __init__(self, file_path='resources/game_1.json'):
+    def __init__(self, file_path='game/resources/game_1.json'):
         self._load(file_path)
         self.sessions = {}
 
