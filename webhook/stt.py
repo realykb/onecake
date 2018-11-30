@@ -53,7 +53,7 @@ class STT:
                         "uuid": [f"{uuid}"],
                         "endOnSilence": 2
                     },
-                    "eventUrl": ["http://6e3d2257.ngrok.io/stt"],
+                    "eventUrl": ["http://22a46b2f.ngrok.io/stt"],
                 }
             ]
             new_ncco.append(action)

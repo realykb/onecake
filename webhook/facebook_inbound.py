@@ -28,7 +28,6 @@ class FacebookWebHook:
         headers = {'Authorization': 'Bearer ' + self.jwt,
                    'Content-Type': 'application/json',
                    'Accept': 'application/json'}
-
         data = {
             "from": {"type": "messenger", "id": from_id},
             "to": {"type": "messenger", "id": to_id},

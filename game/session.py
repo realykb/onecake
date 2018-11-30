@@ -40,7 +40,7 @@ class Session:
             city = self.locator.get_city(lat, long)
         except KeyError:
             return False
-        if city in expected:
+        if city.lower() in expected[0].lower():
             return True
         return False
 
