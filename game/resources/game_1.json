@@ -39,6 +39,6 @@
       "on_success": {
         "type": "end"
       }
-    },
+    }
   ]
 }
