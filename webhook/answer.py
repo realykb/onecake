@@ -4,22 +4,18 @@ import falcon
 
 
 class Answer:
-    @staticmethod
-    def on_get(req, resp):
+    question_dict = {}
+    
+    def on_get(self, req, resp):
         uuid = req.params.get("uuid")
         our_question = 'What is the answer to life the universe and everything'
+        self.question_dict[uuid] = our_question
         data = [
             {
                 "action": "talk",
-                "text": "Welcome to ONE CAKE Kangbo",
+                "text": f"Welcome to ONE CAKE Kangbo. {our_question}",
                 "voiceName": "Amy",
                 "bargeIn": False
-            },
-            {
-                "action": "talk",
-                "text": f"{our_question}.",
-                "voiceName": "Amy",
-                "bargeIn": True
             },
             {
                 "action": "input",
@@ -27,10 +23,9 @@ class Answer:
                     "context": ["forty two"],
                     "language": "en-gb",
                     "uuid": [f"{uuid}"],
-                    "endOnSilence": 2  # 2<=endOnSilence<=10 default 2
+                    "endOnSilence": 2
                 },
-                "eventUrl": ["http://6e3d2257.ngrok.io/event"],
-                "eventMethod": "POST"  # POST/GET default POST
+                "eventUrl": ["http://6e3d2257.ngrok.io/stt"],
             },
             {
                 "action": "talk",
