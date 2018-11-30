@@ -2,9 +2,9 @@ import json
 import falcon
 
 from game.game import Game
-from .nexmo_inbound import NexmoWebHook
+from .facebook_inbound import FacebookWebHook
 from .status import Status
-from .answer import Answer
+from .voice_answer import Answer
 from .event import Event
 from .stt import STT
 
@@ -40,7 +40,7 @@ class Index(object):
 
 game = Game()
 index = Index()
-inbound_message = NexmoWebHook()
+inbound_message = FacebookWebHook(game)
 status = Status()
 answer = Answer(game)
 event = Event()
